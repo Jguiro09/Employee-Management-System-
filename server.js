@@ -2,6 +2,7 @@ const express = require('express');
 const inquirer = require('inquirer');
 const e = require('./lib/Employee');
 const r = require('./lib/Role');
+const d = require('./lib/Department');
 const questions = require('./lib/questions');
 const tableData = require('./lib/tableData');
 
@@ -45,6 +46,9 @@ function askQuestions() {
                 .then((response) => {
                     r.addRole(response.title, response.salary, response.department)
                 })
+                break;
+            case "view all departments":
+                d.viewDepartments()
                 break;
         }
     })
