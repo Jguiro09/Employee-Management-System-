@@ -19,10 +19,13 @@ function askQuestions() {
                 e.viewEmployee();
                 break;
             case "quit":
-                tableData.getEmployeeNames();
+                // tableData.getEmployeeNames();
                 break;
             case "add employee":
-                e.addEmployee(response.eFName, response.eLName, response.eRole);
+                inquirer.prompt(questions.addEmployee)
+                .then((response) => {
+                    e.addEmployee(response.eFName, response.eLName, response.eRole, response.eManager);
+                })
                 break;
         }
     })
