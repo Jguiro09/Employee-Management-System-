@@ -1,6 +1,7 @@
 const express = require('express');
 const inquirer = require('inquirer');
 const e = require('./lib/Employee');
+const r = require('./lib/Role');
 const questions = require('./lib/questions');
 const tableData = require('./lib/tableData');
 
@@ -35,6 +36,8 @@ function askQuestions() {
                     else if (response.eUpdate == "manager")
                     {e.updateManager(response.eName, response.eManager)}
                 })
+            case "view all roles":
+                r.viewRoles();
         }
     })
 }
