@@ -50,6 +50,11 @@ function askQuestions() {
             case "view all departments":
                 d.viewDepartments()
                 break;
+            case "add department":
+                inquirer.prompt(questions.addDepartment)
+                .then((response) => {
+                    d.addDepartment(response.name);
+                })
         }
     })
 }
