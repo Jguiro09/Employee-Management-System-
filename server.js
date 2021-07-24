@@ -27,6 +27,14 @@ function askQuestions() {
                     e.addEmployee(response.eFName, response.eLName, response.eRole, response.eManager);
                 })
                 break;
+            case "update employee":
+                inquirer.prompt(questions.updateEmployee)
+                .then((response) => {
+                    if(response.eUpdate == "role")
+                    {e.updateRole(response.eName, response.eRole)}
+                    else if (response.eUpdate == "manager")
+                    {e.updateManager(response.eName, response.eManager)}
+                })
         }
     })
 }
