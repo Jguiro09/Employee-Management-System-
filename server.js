@@ -36,8 +36,16 @@ function askQuestions() {
                     else if (response.eUpdate == "manager")
                     {e.updateManager(response.eName, response.eManager)}
                 })
+                break;
             case "view all roles":
                 r.viewRoles();
+                break;
+            case "add role":
+                inquirer.prompt(questions.addRole)
+                .then((response) => {
+                    r.addRole(response.title, response.salary, response.department)
+                })
+                break;
         }
     })
 }
