@@ -47,8 +47,7 @@ function askQuestions() {
                 e.viewEmployee();
                 break;
             case "quit":
-                e.test();
-                console.log("damn..");
+                e.getRole();
                 break;
             case "add employee":
                 e.addEmployee(response.eFName, response.eLName, response.eRole);
