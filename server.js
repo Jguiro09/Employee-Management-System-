@@ -19,7 +19,7 @@ function askQuestions() {
                 e.viewEmployee();
                 break;
             case "quit":
-                tableData.getRoles();
+                tableData.getEmployeeNames();
                 break;
             case "add employee":
                 e.addEmployee(response.eFName, response.eLName, response.eRole);
