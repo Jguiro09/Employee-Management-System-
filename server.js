@@ -3,8 +3,7 @@ const inquirer = require('inquirer');
 const e = require('./lib/Employee');
 const r = require('./lib/Role');
 const d = require('./lib/Department');
-const questions = require('./lib/questions');
-const tableData = require('./lib/tableData');
+const q = require('./lib/questions');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -13,47 +12,93 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 function askQuestions() {
-    inquirer.prompt(questions.initialQuestions)
+    inquirer.prompt(q.initialQuestions)
     .then((response) =>
     {
         switch(response.answer){
-            case 'view all employees':
-                e.viewEmployee();
+            case "Employees":
+                inquirer.prompt(q.employeeOptions)
+                    .then((response) => {
+                        switch (response.eOption)
+                        {
+                            case "View Employees":
+                                inquirer.prompt(q.employeeViewOption)
+                                    .then((response) => {
+                                        switch(response.eView){
+                                            case 'View All Employees':
+                                                break;
+                                            case 'View Employees By Manager':
+                                                break;
+                                            case 'View Employees By Department':
+                                                break;
+                                        }
+                                    })
+                                break;
+                            case "Update Employees":
+                                inquirer.prompt(q.employeeUpdateOptions)
+                                .then((response) => {
+                                    switch(response.eUpdate){
+                                        case "Add Employee":
+                                            inquirer.prompt(questions.addEmployee)
+                                                .then((response) => {
+                                                    e.addEmployee(response.eFName, response.eLName, response.eRole, response.eManager);})
+                                            break;
+                                        case "Update Existing Employee Traits":
+                                            inquirer.prompt(questions.updateEmployee)
+                                            .then((response) => {
+                                                if(response.eUpdate == "role")
+                                                {e.updateRole(response.eName, response.eRole)}
+                                                else if (response.eUpdate == "manager")
+                                                {e.updateManager(response.eName, response.eManager)}
+                                            })
+                                            break;
+                                        case "Delete Employee":
+                                            break;
+                                    }
+                                })
+                                break;
+                        }
+                    })
                 break;
-            case "quit":
-                // tableData.getEmployeeNames();
-                break;
-            case "add employee":
-                inquirer.prompt(questions.addEmployee)
+
+            case "Departments":
+                inquirer.prompt(q.departmentQuestions)
                 .then((response) => {
-                    e.addEmployee(response.eFName, response.eLName, response.eRole, response.eManager);
+                    switch(response.dOption)
+                    {
+                        case "View All Departments":
+                            break;
+                        case "Add Departments":
+                            break;
+                        case "Delete Departments":
+                            break;
+                        case "Check Utilizied Budget of Departments":
+                            break;
+                    }
                 })
                 break;
-            case "update employee":
-                inquirer.prompt(questions.updateEmployee)
+
+            case "Roles":
+                inquirer.prompt(q.roleQuestions)
                 .then((response) => {
-                    if(response.eUpdate == "role")
-                    {e.updateRole(response.eName, response.eRole)}
-                    else if (response.eUpdate == "manager")
-                    {e.updateManager(response.eName, response.eManager)}
-                })
-                break;
-            case "view all roles":
-                r.viewRoles();
-                break;
-            case "add role":
-                inquirer.prompt(questions.addRole)
-                .then((response) => {
-                    r.addRole(response.title, response.salary, response.department)
-                })
-                break;
-            case "view all departments":
-                d.viewDepartments()
-                break;
-            case "add department":
-                inquirer.prompt(questions.addDepartment)
-                .then((response) => {
-                    d.addDepartment(response.name);
+                    switch(response.option)
+                    {
+                        case 'View Roles':
+                            inquirer.prompt(q.roleViewQuestions)
+                            .then((response) => {
+                                switch(response.viewOption)
+                                {
+                                    case "View All Roles":
+                                        break;
+                                    case "View Roles By Department":
+                                        break;
+                                }
+                            })
+                            break;
+
+                        case 'Add a New Role':
+                            break;
+                    }
                 })
         }
     })
