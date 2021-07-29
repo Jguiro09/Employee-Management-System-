@@ -17,7 +17,8 @@ Utilizing Node.js, Inquirer, and MYSQL, this program is able to function s a com
 
 ## Demo  
 
-![demo gif](/assets/img/TEAM.gif)
+[DEMO 1](https://www.youtube.com/watch?v=YEYJ_ZvGr-g&ab_channel=JacobGuiro)  
+[DEMO 2](https://www.youtube.com/watch?v=JbJ99fh8jUg&ab_channel=JacobGuiro)
 
 ## Installation
 
